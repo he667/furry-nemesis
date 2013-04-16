@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hello">Hello World, FruityClock!</string>
+    <string name="app_name">FruityClock</string>
+    <string name="app_url">http://www.shiliak.net</string>
+    
+  
+		<string-array
+		name="ms"
+	>
+		<item>JAN</item>
+		<item>FEB</item>
+		<item>MAR</item>
+		<item>APR</item>
+		<item>MAY</item>
+		<item>JUN</item>
+		<item>JUL</item>
+		<item>AUG</item>
+		<item>SEP</item>
+		<item>OCT</item>
+		<item>NOV</item>
+		<item>DEC</item>
+	</string-array>
+	
+	
+	<string-array
+		name="se"
+	>
+		<item>SUN</item>
+		<item>MON</item>
+		<item>TUE</item>
+		<item>WED</item>
+		<item>THU</item>
+		<item>FRI</item>
+		<item>SAT</item>
+	</string-array>
+</resources>

@@ -1,0 +1,37 @@
+[
+	[
+	"id":146854,
+	"name":"Fruity Default",
+	"preview":"http://www.shiliak.net/fruityclock/prev",
+	"a0":"http://www.shiliak.net/fruityclock/a0.png",
+	"a1":"http://www.shiliak.net/fruityclock/a0.png",
+	"a2":"http://www.shiliak.net/fruityclock/a0.png",
+	"a3":"http://www.shiliak.net/fruityclock/a0.png",
+	"a4":"http://www.shiliak.net/fruityclock/a0.png",
+	"a5":"http://www.shiliak.net/fruityclock/a0.png",
+	"a6":"http://www.shiliak.net/fruityclock/a0.png",
+	"a7":"http://www.shiliak.net/fruityclock/a0.png",
+	"a8":"http://www.shiliak.net/fruityclock/a0.png",
+	"a9":"http://www.shiliak.net/fruityclock/a0.png",
+	"adp":"http://www.shiliak.net/fruityclock/a0.png",
+	"ttf":""http://www.shiliak.net/fruityclock/alpha.ttf"
+	]
+	
+	[
+	"id":6498,
+	"name":"Fruity First",
+	"preview":"http://www.shiliak.net/fruityclock/prev",
+	"a0":"http://www.shiliak.net/fruityclock/a0.png",
+	"a1":"http://www.shiliak.net/fruityclock/a0.png",
+	"a2":"http://www.shiliak.net/fruityclock/a0.png",
+	"a3":"http://www.shiliak.net/fruityclock/a0.png",
+	"a4":"http://www.shiliak.net/fruityclock/a0.png",
+	"a5":"http://www.shiliak.net/fruityclock/a0.png",
+	"a6":"http://www.shiliak.net/fruityclock/a0.png",
+	"a7":"http://www.shiliak.net/fruityclock/a0.png",
+	"a8":"http://www.shiliak.net/fruityclock/a0.png",
+	"a9":"http://www.shiliak.net/fruityclock/a0.png",
+	"adp":"http://www.shiliak.net/fruityclock/a0.png",
+	"ttf":""http://www.shiliak.net/fruityclock/alpha.ttf"
+	]
+]
