@@ -30,15 +30,11 @@ public class ClockBuilder {
 		p.setStyle(Paint.Style.FILL);
 		p.setColor(Color.WHITE);
 
-		p.setAlpha(50);
-		canvas.drawRect(0, 0, xSize, ySize, p);
-		p.setAlpha(255);
+		hourTen.draw(xSize, ySize, 0, canvas, p);
+		hour.draw(xSize, ySize, 1, canvas, p);
 
-		hourTen.draw(xSize, ySize, 1, canvas, p);
-		hour.draw(xSize, ySize, 3, canvas, p);
-
-		minTen.draw(xSize, ySize, 5, canvas, p);
-		min.draw(xSize, ySize, 7, canvas, p);
+		minTen.draw(xSize, ySize, 2, canvas, p);
+		min.draw(xSize, ySize, 3, canvas, p);
 
 		return bitmap;
 	}

@@ -11,7 +11,7 @@ public class RealNumber implements Number {
 	@Override
 	public void draw(int xSize, int ySize, int position, Canvas c, Paint p) {
 		Log.d(FruityClockActivity.TAG, "Drawing " + numberValue + " at position " + position + "/xSize=" + xSize + "/ySize=" + ySize);
-		int pos = position * xSize / 8;
+		int pos = position * xSize / 4;
 
 		switch (numberValue) {
 		case 0:
@@ -50,16 +50,22 @@ public class RealNumber implements Number {
 	}
 
 	private void drawMatrix(Canvas c, Paint paint, int pos, int xSize, int[] matrix) {
-		int bsize = (xSize - 4) / 24;
+		int bsize = (xSize - 4) / 12;
 		for (int i = 0; i < matrix.length; i++) {
 			int x = i % 3;
 			int y = i / 3;
 			Log.d(FruityClockActivity.TAG, "x " + x);
 			Log.d(FruityClockActivity.TAG, "y " + y);
 			if (matrix[i] == 1) {
+				paint.setAlpha(255);
+				c.drawRect(pos + x * bsize, y * bsize, pos + (x + 1) * bsize, (y + 1) * bsize, paint);
+			} else {
+				paint.setAlpha(50);
 				c.drawRect(pos + x * bsize, y * bsize, pos + (x + 1) * bsize, (y + 1) * bsize, paint);
 			}
+
 		}
+
 	}
 
 	@Override
