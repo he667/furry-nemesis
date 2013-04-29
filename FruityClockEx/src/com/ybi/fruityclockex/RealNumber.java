@@ -2,7 +2,6 @@ package com.ybi.fruityclockex;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.util.Log;
 
 public class RealNumber implements Number {
 
@@ -10,7 +9,6 @@ public class RealNumber implements Number {
 
 	@Override
 	public void draw(int xSize, int ySize, int position, Canvas c, Paint p) {
-		Log.d(FruityClockActivity.TAG, "Drawing " + numberValue + " at position " + position + "/xSize=" + xSize + "/ySize=" + ySize);
 		int pos = position * xSize / 4;
 
 		switch (numberValue) {
@@ -54,8 +52,6 @@ public class RealNumber implements Number {
 		for (int i = 0; i < matrix.length; i++) {
 			int x = i % 3;
 			int y = i / 3;
-			Log.d(FruityClockActivity.TAG, "x " + x);
-			Log.d(FruityClockActivity.TAG, "y " + y);
 			if (matrix[i] == 1) {
 				paint.setAlpha(255);
 				c.drawRect(pos + x * bsize, y * bsize, pos + (x + 1) * bsize, (y + 1) * bsize, paint);

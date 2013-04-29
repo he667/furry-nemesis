@@ -18,8 +18,10 @@ public class NumberFactory {
 			return new SquareNumber();
 		case 1:
 			return new RoundNumber();
-		default:
+		case 3:
 			return new RealNumber();
+		default:
+			return new FlippingNumber();
 		}
 	}
 

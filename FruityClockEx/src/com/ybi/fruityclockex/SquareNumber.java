@@ -2,7 +2,6 @@ package com.ybi.fruityclockex;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.util.Log;
 
 public class SquareNumber implements Number {
 
@@ -10,7 +9,6 @@ public class SquareNumber implements Number {
 
 	@Override
 	public void draw(int xSize, int ySize, int position, Canvas c, Paint p) {
-		Log.d(FruityClockActivity.TAG, "Drawing " + numberValue + " at position " + position + "/xSize=" + xSize + "/ySize=" + ySize);
 		int pos = position * xSize / 8;
 		int smallsize = xSize / 16 - 4;
 		int bigsize = xSize / 8 - 4;
