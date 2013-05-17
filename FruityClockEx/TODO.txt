@@ -1,0 +1,13 @@
+
+- get a list of theme from a url 
+-- get it parse it
+-- insert into a db
+
+- get a list of theme from a db
+-- generate a static json of the response
+-- process the json response
+-- download images if they're not locally available
+
+- install a theme
+
+-  

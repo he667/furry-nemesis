@@ -7,7 +7,7 @@ import android.graphics.Paint;
 
 public class FlippingNumber implements Number {
 
-	private final static String PATH = "/mnt/sdcard/FruityClockEx/Themes/FlippingNumber/";
+	private final static String PATH = "/mnt/sdcard/FruityClockEx/Themes/FluppingNumber/";
 
 	private int numberValue;
 
@@ -17,9 +17,9 @@ public class FlippingNumber implements Number {
 
 		Bitmap bg;
 		if (numberValue == 0) {
-			bg = BitmapFactory.decodeFile(PATH + "1_10.png");
+			bg = BitmapFactory.decodeFile(PATH + "2_10.png");
 		} else {
-			bg = BitmapFactory.decodeFile(PATH + "1_0" + numberValue + ".png");
+			bg = BitmapFactory.decodeFile(PATH + "2_0" + numberValue + ".png");
 		}
 		c.drawBitmap(bg, pos, 0, p);
 

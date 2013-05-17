@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<database name="themes_db" version="1">
+  
+  <table name="themes" to-string="%title%">
+      
+	<field name="title" obligatory="true" type="text"/>
+	<field name="link" obligatory="true" type="text"/>
+	<field name="description" obligatory="true" type="text"/>
+	<field name="date" obligatory="true" type="text"/>
+	<field name="mediaThumbnail" obligatory="true" type="text"/>
+	<field name="mediaContent" obligatory="true" type="text"/>
+	<field name="checksum" obligatory="true" type="text"/>
+	<field name="location" obligatory="true" type="text"/>
+	<field name="status" obligatory="true" type="integer"/>
+	
+  </table>
+  
+ </database>
