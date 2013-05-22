@@ -2,11 +2,11 @@
 <database name="themes_db" version="1">
   
   <table name="themes" to-string="%title%">
-      
+	<field name="tid" obligatory="true" type="long"/>      
 	<field name="title" obligatory="true" type="text"/>
 	<field name="link" obligatory="true" type="text"/>
 	<field name="description" obligatory="true" type="text"/>
-	<field name="date" obligatory="true" type="text"/>
+	<field name="date" obligatory="true" type="long"/>
 	<field name="mediaThumbnail" obligatory="true" type="text"/>
 	<field name="mediaContent" obligatory="true" type="text"/>
 	<field name="checksum" obligatory="true" type="text"/>

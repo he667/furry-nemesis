@@ -1,45 +1,35 @@
 package com.ybi.fruityclockex;
 
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
-
 import com.android.dataframework.Entity;
 
-import android.util.Log;
-
 public class Theme implements Comparable<Theme> {
-	final static SimpleDateFormat IN_FORMATTER = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss Z", Locale.US);
-	final static SimpleDateFormat OUT_FORMATTER = new SimpleDateFormat("yyMMddHHmmssZ", Locale.US);
+	//	final static SimpleDateFormat IN_FORMATTER = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss Z", Locale.US);
+	//	final static SimpleDateFormat OUT_FORMATTER = new SimpleDateFormat("yyMMddHHmmssZ", Locale.US);
+	public final static int STATUS_AVAILABLE = 1;
+	public final static int STATUS_INSTALLED = 2;
 
-	private long id;
+	private long tid;
 	private String title;
-	private URL link;
+	private String link;
 	private String description;
-	private Date date;
+	private long date;
 	private String mediaThumbnail;
 	private String mediaContent;
 	private String checksum;
 	private String location;
 	private int status;
 
-	public long getId() {
-		return id;
+	public long getTid() {
+		return tid;
 	}
 
-	public void setId(long id) {
-		this.id = id;
+	public void setTid(long id) {
+		tid = id;
 	}
 
 	// getters and setters omitted for brevity
 	public void setLink(String link) {
-		try {
-			this.link = new URL(link);
-		} catch (MalformedURLException e) {
-			throw new RuntimeException(e);
-		}
+		this.link = link;
 	}
 
 	public String getTitle() {
@@ -50,12 +40,8 @@ public class Theme implements Comparable<Theme> {
 		this.title = title;
 	}
 
-	public URL getLink() {
+	public String getLink() {
 		return link;
-	}
-
-	public void setLink(URL link) {
-		this.link = link;
 	}
 
 	public String getDescription() {
@@ -66,41 +52,42 @@ public class Theme implements Comparable<Theme> {
 		this.description = description;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(long date) {
 		this.date = date;
 	}
 
-	public String getDateForDatabase() {
-		return OUT_FORMATTER.format(date);
-	}
 
-	public String getDateForDisplay() {
-		return IN_FORMATTER.format(date);
-	}
-
-	public void setDateFromDatabase(String date) {
-		// pad the date if necessary
-		while (!date.endsWith("00")) {
-			date += "0";
-		}
-		try {
-			this.date = OUT_FORMATTER.parse(date.trim());
-		} catch (java.text.ParseException e) {
-			Log.e(FruityClockActivity.TAG, "Parse Excpetion", e);
-		}
-	}
-
-	public void setDateFromFeed(String date) {
-		// pad the date if necessary
-		while (!date.endsWith("00")) {
-			date += "0";
-		}
-		try {
-			this.date = IN_FORMATTER.parse(date.trim());
-		} catch (java.text.ParseException e) {
-			Log.e(FruityClockActivity.TAG, "Parse Excpetion", e);
-		}
-	}
+	//	public String getDateForDatabase() {
+	//		return OUT_FORMATTER.format(date);
+	//	}
+	//
+	//	public String getDateForDisplay() {
+	//		return IN_FORMATTER.format(date);
+	//	}
+	//
+	//	public void setDateFromDatabase(String date) {
+	//		// pad the date if necessary
+	//		while (!date.endsWith("00")) {
+	//			date += "0";
+	//		}
+	//		try {
+	//			this.date = OUT_FORMATTER.parse(date.trim());
+	//		} catch (java.text.ParseException e) {
+	//			//Log.e(FruityClockActivity.TAG, "Parse Excpetion", e);
+	//		}
+	//	}
+	//
+	//	public void setDateFromFeed(String date) {
+	//		// pad the date if necessary
+	//		while (!date.endsWith("00")) {
+	//			date += "0";
+	//		}
+	//		try {
+	//			this.date = IN_FORMATTER.parse(date.trim());
+	//		} catch (java.text.ParseException e) {
+	//			//Log.e(FruityClockActivity.TAG, "Parse Excpetion", e);
+	//		}
+	//	}
 
 	public void setMediaContent(String mediaContent) {
 		this.mediaContent = mediaContent;
@@ -143,14 +130,14 @@ public class Theme implements Comparable<Theme> {
 		return title + " / " + description + " / " + link.toString();
 	}
 
-	// sort by date
+	//	// sort by date
 	@Override
 	public int compareTo(Theme another) {
 		if (another == null) {
 			return 1;
 		}
 		// sort descending, most recent first
-		return another.date.compareTo(date);
+		return (int) (another.date - date);
 	}
 
 	public Theme copy() {
@@ -163,6 +150,7 @@ public class Theme implements Comparable<Theme> {
 		theme.setMediaContent(mediaContent);
 		theme.setLocation(location);
 		theme.setStatus(status);
+		theme.setTid(tid);
 		return theme;
 	}
 
@@ -177,19 +165,21 @@ public class Theme implements Comparable<Theme> {
 		entity.setValue("checksum", checksum);
 		entity.setValue("location", location);
 		entity.setValue("status", status);
+		entity.setValue("tid", tid);
 		return entity;
 	}
 
 	public static Theme fromEntity(Entity ent) {
 		Theme theme = new Theme();
-		theme.setDateFromDatabase((String) ent.getValue("date"));
+		theme.setDate(ent.getValue("date") != null ? Long.parseLong((String) ent.getValue("date")) : 0);
 		theme.setDescription((String) ent.getValue("descritption"));
 		theme.setLink((String) ent.getValue("link"));
 		theme.setTitle((String) ent.getValue("title"));
 		theme.setMediaThumbnail((String) ent.getValue("mediaThumbnail"));
 		theme.setMediaContent((String) ent.getValue("mediaContent"));
 		theme.setLocation((String) ent.getValue("location"));
-		theme.setStatus(ent.getValue("status") != null ? (Integer) ent.getValue("status") : 0);
+		theme.setTid(ent.getValue("tid") != null ? Integer.parseInt((String) ent.getValue("tid")) : 0);
+		theme.setStatus(ent.getValue("status") != null ? Integer.parseInt((String) ent.getValue("status")) : 0);
 		return theme;
 	}
 

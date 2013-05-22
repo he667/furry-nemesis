@@ -5,14 +5,17 @@ import java.util.List;
 import android.content.Context;
 import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class ThemeAdapter extends BaseAdapter {
 
@@ -25,10 +28,19 @@ public class ThemeAdapter extends BaseAdapter {
 	// Now handle the main ImageView thumbnails
 	static ViewHolder holder;
 
+	private final OnClickListener onClickListener;
 
 	public ThemeAdapter(Context context, List<Theme> listItems) {
 		this.context = context;
 		items = listItems;
+		onClickListener = new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				Log.d(FruityClockActivity.TAG, "Clicked " + v.getTag());
+				Toast.makeText(ThemeAdapter.this.context, "azdazdazda", Toast.LENGTH_SHORT).show();
+			}
+		};
 
 	}
 
@@ -78,7 +90,9 @@ public class ThemeAdapter extends BaseAdapter {
 
 			// Add The Image!!!
 			iv = (ImageView) localView.findViewById(R.id.imageView1);
+			iv.setOnClickListener(onClickListener);
 			//iv.setScaleType(ImageView.ScaleType.CENTER_CROP);
+			iv.setTag(position);
 
 			//localView.setLayoutParams(mImageViewLayoutParams);
 			//imageView.setPadding(4, 4, 4, 4);

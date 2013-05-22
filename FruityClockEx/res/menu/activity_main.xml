@@ -5,5 +5,11 @@
         android:orderInCategory="100"
         android:showAsAction="never"
         android:title="@string/menu_settings"/>
-
+ 
+ <item
+        android:showAsAction="always"
+        android:id="@+id/refresh" 
+        android:icon="@android:drawable/ic_popup_sync"
+        android:title="@string/refresh"
+        android:menuCategory="system" />
 </menu>

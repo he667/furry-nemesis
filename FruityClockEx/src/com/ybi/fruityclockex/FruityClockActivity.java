@@ -1,23 +1,26 @@
 package com.ybi.fruityclockex;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import android.content.Intent;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.ListFragment;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.dataframework.DataFramework;
 import com.android.dataframework.Entity;
@@ -25,63 +28,131 @@ import com.android.dataframework.Entity;
 public class FruityClockActivity extends FragmentActivity {
 
 	public static final String TAG = "FruityClockEx";
+	private static final int AVAILABLE_FRAGMENT_TAG = 0;
+	private static final int INSTALLED_FRAGMENT_TAG = 1;
+	private static final int REQUEST_CODE = 1;
 
-	/**
-	 * The {@link android.support.v4.view.PagerAdapter} that will provide
-	 * fragments for each of the sections. We use a
-	 * {@link android.support.v4.app.FragmentPagerAdapter} derivative, which
-	 * will keep every loaded fragment in memory. If this becomes too memory
-	 * intensive, it may be best to switch to a
-	 * {@link android.support.v4.app.FragmentStatePagerAdapter}.
-	 */
-	SectionsPagerAdapter mSectionsPagerAdapter;
+	private SectionsPagerAdapter mSectionsPagerAdapter;
+	private ViewPager mViewPager;
+	private RefreshTask task;
+	private Menu optionsMenu;
+	private int currentAvailableThemeId;
+	private int currentInstalledThemeId;
 
-	/**
-	 * The {@link ViewPager} that will host the section contents.
-	 */
-	ViewPager mViewPager;
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
-		// Create the adapter that will return a fragment for each of the three
-		// primary sections of the app.
+		// Create the adapter that will return a fragment for each of the three primary sections of the app.
 		mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
 		// Set up the ViewPager with the sections adapter.
 		mViewPager = (ViewPager) findViewById(R.id.pager);
 		mViewPager.setAdapter(mSectionsPagerAdapter);
 
+		// database connectivity
+		openDatabase();
+
+		// initialize the list if it's empty
+		initiate();
+
+	}
+
+	private void initiate() {
+		int count = DataFramework.getInstance().getCursor("themes").getCount();
+		if (count == 0) {
+			startRefreshTask();
+		}
+	}
+
+	private void startRefreshTask() {
+		task = (RefreshTask) getLastCustomNonConfigurationInstance();
+
+		if (task == null) {
+			task = new RefreshTask(this);
+			task.execute();
+		} else {
+			task.attach(this);
+			onProgressUpdate(task.getProgress());
+
+			if (task.getProgress() >= 100) {
+				onPostExecute();
+			}
+		}
+	}
+
+	@Override
+	public Object onRetainCustomNonConfigurationInstance() {
+		task.detach();
+
+		return task;
+	}
+
+	public void onPreExecute() {
+		Toast.makeText(getApplicationContext(), "Downloading themes.", Toast.LENGTH_SHORT).show();
+		setRefreshActionButtonState(true);
+	}
+
+	void onProgressUpdate(int progress) {
+		Toast.makeText(getApplicationContext(), "Checking for new themes...", Toast.LENGTH_SHORT).show();
+	}
+
+	void onPostExecute() {
+		Toast.makeText(getApplicationContext(), "Theme update complete.", Toast.LENGTH_SHORT).show();
+		setRefreshActionButtonState(false);
+		FruityListFragment fragment =
+				(FruityListFragment) getSupportFragmentManager().findFragmentByTag(
+						makeFragmentName(R.id.pager, AVAILABLE_FRAGMENT_TAG));
+		populateList(Theme.STATUS_AVAILABLE, fragment);
+		fragment.getAdapter(getApplicationContext()).notifyDataSetChanged();
+	}
+
+	private void openDatabase() {
+
 		//deleteDatabase("themes_db");
-		//
+
 		try {
 			DataFramework.getInstance().open(this, "com.ybi.fruityclockex");
 		} catch (Exception e) {
 			Log.e(TAG, "Error getting dataframework instance", e);
 		}
-		//
-		//		for (int i = 0; i < 20; i++) {
-		//			Theme testItem = new Theme();
-		//			testItem.setTitle("Lorem Ipsum " + i);
-		//			testItem.setDate(Calendar.getInstance().getTime());
-		//			testItem.setDescription("Dolor sit amet consectur");
-		//			testItem.setLink("http://www.google.fr");
-		//			testItem.setMediaThumbnail("/mnt/sdcard/Pictures/Boston2.jpg");
-		//			testItem.toEntity().save();
+
+		//		for (int i = 0; i < 10; i++) {
+		//			Theme theme = new Theme();
+		//			theme.setTid(i);
+		//			theme.setDate(System.currentTimeMillis());
+		//			theme.setDescription("blablabla");
+		//			theme.setLink("http://www.something.com");
+		//			theme.setLocation("http://www.playstore.com");
+		//			theme.setMediaContent("http://www.something.com/themename/theme.zip");
+		//			theme.setMediaThumbnail("http://www.something.com/themename/thumbnail.jpg");
+		//			theme.setStatus(Theme.STATUS_AVAILABLE);
+		//			theme.setTitle("Theme #" + i);
+		//			theme.toEntity().save();
 		//		}
-		//
-		//		DataFramework.getInstance().getDB().execSQL("drop table themes;");
-
-
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.activity_main, menu);
-		return true;
+		optionsMenu = menu;
+		return super.onCreateOptionsMenu(menu);
+	}
+
+	public void setRefreshActionButtonState(final boolean refreshing) {
+		if (optionsMenu != null) {
+			final MenuItem refreshItem = optionsMenu.findItem(R.id.refresh);
+			if (refreshItem != null) {
+				if (refreshing) {
+					refreshItem.setActionView(R.layout.actionbar_indeterminate_progress);
+				} else {
+					refreshItem.setActionView(null);
+				}
+			}
+		}
 	}
 
 	/**
@@ -97,30 +168,20 @@ public class FruityClockActivity extends FragmentActivity {
 		@Override
 		public Fragment getItem(int position) {
 			// getItem is called to instantiate the fragment for the given page.
-			// Return a DummySectionFragment (defined as a static inner class
-			// below) with the page number as its lone argument.
 			if (position == 0) {
-				ListFragment fragment = new ListFragment();
-
-				List<Entity> categories = DataFramework.getInstance().getEntityList("themes");
-
-				ArrayList<Theme> items = new ArrayList<Theme>();
-
-				Iterator<Entity> iter = categories.iterator();
-				while (iter.hasNext()) {
-					Entity ent = iter.next();
-					items.add(Theme.fromEntity(ent));
-					Log.d(TAG, "SELECTED : " + ent.getString("title"));
-				}
-
-				MainAdapter adapter = new MainAdapter(getApplicationContext(), items);
-				fragment.setListAdapter(adapter);
-
-				return fragment;
+				Fragment availableFragment = prepareListFragement(Theme.STATUS_AVAILABLE);
+				((FruityListFragment) availableFragment).attach(availableClickListener);
+				//getSupportFragmentManager().beginTransaction().add(availableFragment, AVAILABLE_FRAGMENT_TAG).commit();
+				return availableFragment;
+			} else if (position == 1) {
+				Fragment installedFragment = prepareListFragement(Theme.STATUS_INSTALLED);
+				((FruityListFragment) installedFragment).attach(installedClickListener);
+				//getSupportFragmentManager().beginTransaction().add(installedFragment, AVAILABLE_FRAGMENT_TAG).commit();
+				return installedFragment;
 			} else {
-				Fragment fragment = new DummySectionFragment();
+				Fragment fragment = new GenericSectionFragment();
 				Bundle args = new Bundle();
-				args.putInt(DummySectionFragment.ARG_SECTION_NUMBER, position + 1);
+				args.putInt(GenericSectionFragment.ARG_SECTION_NUMBER, position + 1);
 				fragment.setArguments(args);
 				return fragment;
 			}
@@ -150,14 +211,14 @@ public class FruityClockActivity extends FragmentActivity {
 	 * A dummy fragment representing a section of the app, but that simply
 	 * displays dummy text.
 	 */
-	public static class DummySectionFragment extends Fragment {
+	public static class GenericSectionFragment extends Fragment {
 		/**
 		 * The fragment argument representing the section number for this
 		 * fragment.
 		 */
 		public static final String ARG_SECTION_NUMBER = "section_number";
 
-		public DummySectionFragment() {
+		public GenericSectionFragment() {
 		}
 
 		@Override
@@ -175,6 +236,163 @@ public class FruityClockActivity extends FragmentActivity {
 	protected void onDestroy() {
 		super.onDestroy();
 		DataFramework.getInstance().close();
+	}
+
+	private Fragment prepareListFragement(int status) {
+		FruityListFragment fragment = new FruityListFragment();
+
+		// populate with the correct status
+		populateList(status, fragment);
+
+		// nothing more
+		fragment.getAdapter(getApplicationContext()).stopAppending();
+		return fragment;
+	}
+
+	private void populateList(int status, FruityListFragment fragment) {
+		List<Entity> categories = DataFramework.getInstance().getEntityList("themes", "status=" + status);
+		fragment.getItems().clear();
+		Iterator<Entity> iter = categories.iterator();
+		while (iter.hasNext()) {
+			Entity ent = iter.next();
+			fragment.getItems().add(Theme.fromEntity(ent));
+		}
+	}
+
+	@Override
+	public boolean onMenuItemSelected(int featureId, MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.refresh:
+			startRefreshTask();
+			return true;
+		default:
+			return super.onMenuItemSelected(featureId, item);
+		}
+
+	}
+
+	static class RefreshTask extends AsyncTask<Void, Void, Void> {
+		FruityClockActivity activity = null;
+		int progress = 0;
+
+		RefreshTask(FruityClockActivity activity) {
+			attach(activity);
+		}
+
+		@Override
+		protected void onPreExecute() {
+			super.onPreExecute();
+			activity.onPreExecute();
+		}
+
+		@Override
+		protected Void doInBackground(Void... unused) {
+			publishProgress();
+
+			ThemeManager.downloadThemes(activity.getApplicationContext());
+			// let's do some things here
+			//			List<Entity> categories = DataFramework.getInstance().getEntityList("themes", "status=1");
+			//
+			//			ArrayList<Theme> items = new ArrayList<Theme>();
+			//
+			//			Iterator<Entity> iter = categories.iterator();
+			//			while (iter.hasNext()) {
+			//				Entity ent = iter.next();
+			//				items.add(Theme.fromEntity(ent));
+			//			}
+			//
+			//			ObjectMapper mapper = new ObjectMapper();
+			//			String result;
+			//			try {
+			//				result = mapper.writeValueAsString(items);
+			//				Log.d(FruityClockActivity.TAG, "Result === " + result);
+			//			} catch (JsonProcessingException e) {
+			//				Log.d(FruityClockActivity.TAG, "Error === ", e);
+			//			}
+			return null;
+		}
+
+		@Override
+		protected void onProgressUpdate(Void... unused) {
+			if (activity == null) {
+				Log.w("RotationAsync", "onProgressUpdate() skipped -- no activity");
+			} else {
+				progress += 5;
+				activity.onProgressUpdate(progress);
+			}
+		}
+
+		@Override
+		protected void onPostExecute(Void unused) {
+			if (activity == null) {
+				Log.w("RotationAsync", "onPostExecute() skipped -- no activity");
+			} else {
+				activity.onPostExecute();
+			}
+		}
+
+		void detach() {
+			activity = null;
+		}
+
+		void attach(FruityClockActivity activity) {
+			this.activity = activity;
+		}
+
+		int getProgress() {
+			return progress;
+		}
+	}
+
+	private static String makeFragmentName(int viewId, int index) {
+		return "android:switcher:" + viewId + ":" + index;
+	}
+
+	private final FruityListClickListener availableClickListener = new FruityListClickListener() {
+		@Override
+		public void onClick(int position) {
+			// do not forget
+			currentAvailableThemeId = position;
+
+			// get the theme
+			FruityListFragment fragment =
+					(FruityListFragment) getSupportFragmentManager().findFragmentByTag(
+							makeFragmentName(R.id.pager, AVAILABLE_FRAGMENT_TAG));
+
+			Theme theme = fragment.getItems().get(position);
+
+			// open the play store where the theme is located
+			final String appName = "com.ovh.android.cloudnasfrontend";//theme.getLink();
+			try {
+				startActivityForResult(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appName)), REQUEST_CODE);
+			} catch (android.content.ActivityNotFoundException anfe) {
+				startActivityForResult(
+						new Intent(Intent.ACTION_VIEW, Uri.parse("http://play.google.com/store/apps/details?id=" + appName)),
+						REQUEST_CODE);
+			}
+
+		}
+	};
+	private final FruityListClickListener installedClickListener = new FruityListClickListener() {
+
+		@Override
+		public void onClick(int position) {
+			// do not forget
+			currentInstalledThemeId = position;
+
+			// select a theme as active
+
+		}
+	};
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		// retrieve the selected app
+		if (requestCode == REQUEST_CODE && currentAvailableThemeId > 0) {
+			// retrieve the theme
+			// check if the theme is available
+			// mark it as installed
+		}
 	}
 
 }
