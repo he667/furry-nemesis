@@ -83,10 +83,11 @@ public class ThemeManager {
 		return s.hasNext() ? s.next() : "";
 	}
 
-	private static boolean themeInstalledOrNot(Theme theme, Context context) {
+	public static boolean themeInstalledOrNot(Theme theme, Context context) {
 		PackageManager pm = context.getPackageManager();
 		boolean app_installed = false;
 		try {
+			//pm.getPackageInfo(theme.getLink(), PackageManager.GET_ACTIVITIES);
 			pm.getPackageInfo(theme.getLink(), PackageManager.GET_ACTIVITIES);
 			app_installed = true;
 		} catch (PackageManager.NameNotFoundException e) {

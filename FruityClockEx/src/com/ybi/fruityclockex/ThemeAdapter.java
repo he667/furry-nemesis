@@ -4,7 +4,6 @@ import java.util.List;
 
 import android.content.Context;
 import android.graphics.BitmapFactory;
-import android.graphics.Typeface;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -83,10 +82,10 @@ public class ThemeAdapter extends BaseAdapter {
 			// Add The Text!!!
 			tv = (TextView) localView.findViewById(R.id.textView1);
 			cv = (TextView) localView.findViewById(R.id.textView2);
-			Typeface someFont = Typeface.createFromAsset(context.getAssets(), "fonts/ubuntul.ttf");
+			//Typeface someFont = Typeface.createFromAsset(context.getAssets(), "fonts/ubuntul.ttf");
 
-			tv.setTypeface(someFont);
-			cv.setTypeface(someFont);
+			//tv.setTypeface(someFont);
+			//cv.setTypeface(someFont);
 
 			// Add The Image!!!
 			iv = (ImageView) localView.findViewById(R.id.imageView1);

@@ -112,7 +112,7 @@ public class FruityClockActivity extends FragmentActivity {
 
 	private void openDatabase() {
 
-		//deleteDatabase("themes_db");
+		deleteDatabase("themes_db");
 
 		try {
 			DataFramework.getInstance().open(this, "com.ybi.fruityclockex");
@@ -120,17 +120,28 @@ public class FruityClockActivity extends FragmentActivity {
 			Log.e(TAG, "Error getting dataframework instance", e);
 		}
 
-		//		for (int i = 0; i < 10; i++) {
-		//			Theme theme = new Theme();
-		//			theme.setTid(i);
-		//			theme.setDate(System.currentTimeMillis());
-		//			theme.setDescription("blablabla");
-		//			theme.setLink("http://www.something.com");
-		//			theme.setLocation("http://www.playstore.com");
-		//			theme.setMediaContent("http://www.something.com/themename/theme.zip");
-		//			theme.setMediaThumbnail("http://www.something.com/themename/thumbnail.jpg");
-		//			theme.setStatus(Theme.STATUS_AVAILABLE);
-		//			theme.setTitle("Theme #" + i);
+		for (int i = 0; i < 10; i++) {
+			Theme theme = new Theme();
+			//theme.setTid(i);
+			theme.setDate(System.currentTimeMillis());
+			theme.setDescription("blablabla");
+			theme.setLink("com.ovh.android.cloudnasfrontend");
+			theme.setLocation("http://www.playstore.com");
+			theme.setMediaContent("http://www.something.com/themename/theme.zip");
+			theme.setMediaThumbnail("http://www.something.com/themename/thumbnail.jpg");
+			theme.setStatus(Theme.STATUS_AVAILABLE);
+			theme.setTitle("Theme #" + i);
+			theme.toEntity().save();
+		}
+
+		//		List<Entity> categories = DataFramework.getInstance().getEntityList("themes");
+		//		Iterator<Entity> iter = categories.iterator();
+		//		while (iter.hasNext()) {
+		//			Entity ent = iter.next();
+		//			Theme theme = Theme.fromEntity(ent);
+		//			Log.d(TAG, "Theme #" + theme.getTid() + " -- Title=" + theme.getTitle());
+		//			Log.d(TAG, "Theme #" + theme.getTid() + " -- Status=" + theme.getStatus());
+		//			theme.setLink("com.ovh.android.cloudnasfrontend");
 		//			theme.toEntity().save();
 		//		}
 	}
@@ -362,12 +373,13 @@ public class FruityClockActivity extends FragmentActivity {
 			Theme theme = fragment.getItems().get(position);
 
 			// open the play store where the theme is located
-			final String appName = "com.ovh.android.cloudnasfrontend";//theme.getLink();
 			try {
-				startActivityForResult(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appName)), REQUEST_CODE);
+				startActivityForResult(
+						new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + theme.getLink())),
+						REQUEST_CODE);
 			} catch (android.content.ActivityNotFoundException anfe) {
 				startActivityForResult(
-						new Intent(Intent.ACTION_VIEW, Uri.parse("http://play.google.com/store/apps/details?id=" + appName)),
+						new Intent(Intent.ACTION_VIEW, Uri.parse("http://play.google.com/store/apps/details?id=" + theme.getLink())),
 						REQUEST_CODE);
 			}
 
@@ -388,10 +400,34 @@ public class FruityClockActivity extends FragmentActivity {
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		// retrieve the selected app
-		if (requestCode == REQUEST_CODE && currentAvailableThemeId > 0) {
+		if (requestCode == REQUEST_CODE && currentAvailableThemeId >= 0) {
+			// retrieve the fragment
+			FruityListFragment availableFragment =
+					(FruityListFragment) getSupportFragmentManager().findFragmentByTag(
+							makeFragmentName(R.id.pager, AVAILABLE_FRAGMENT_TAG));
+
+			FruityListFragment installedFragment =
+					(FruityListFragment) getSupportFragmentManager().findFragmentByTag(
+							makeFragmentName(R.id.pager, INSTALLED_FRAGMENT_TAG));
+
 			// retrieve the theme
+			Theme theme = availableFragment.getItems().get(currentAvailableThemeId);
+
 			// check if the theme is available
-			// mark it as installed
+			if (ThemeManager.themeInstalledOrNot(theme, getApplicationContext())) {
+				// mark it as installed
+				theme.setStatus(Theme.STATUS_INSTALLED);
+				theme.toEntity().save();
+
+				// now is the good time to refresh the two fragment
+				// 1. Available
+				populateList(Theme.STATUS_AVAILABLE, availableFragment);
+				availableFragment.getAdapter(getApplicationContext()).notifyDataSetChanged();
+
+				// 2. Installed
+				populateList(Theme.STATUS_INSTALLED, installedFragment);
+				installedFragment.getAdapter(getApplicationContext()).notifyDataSetChanged();
+			}
 		}
 	}
 

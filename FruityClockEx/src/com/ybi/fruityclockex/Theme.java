@@ -19,6 +19,10 @@ public class Theme implements Comparable<Theme> {
 	private String location;
 	private int status;
 
+	public Theme() {
+		tid = -1;
+	}
+
 	public long getTid() {
 		return tid;
 	}
@@ -140,22 +144,14 @@ public class Theme implements Comparable<Theme> {
 		return (int) (another.date - date);
 	}
 
-	public Theme copy() {
-		Theme theme = new Theme();
-		theme.setDate(date);
-		theme.setDescription(description);
-		theme.setLink(link);
-		theme.setTitle(title);
-		theme.setMediaThumbnail(mediaThumbnail);
-		theme.setMediaContent(mediaContent);
-		theme.setLocation(location);
-		theme.setStatus(status);
-		theme.setTid(tid);
-		return theme;
-	}
-
 	public Entity toEntity() {
-		Entity entity = new Entity("themes");
+		Entity entity;
+		if (tid > 0) {
+			entity = new Entity("themes", tid);
+		} else {
+			entity = new Entity("themes");
+		}
+
 		entity.setValue("title", title);
 		entity.setValue("link", link);
 		entity.setValue("description", description);
@@ -165,7 +161,8 @@ public class Theme implements Comparable<Theme> {
 		entity.setValue("checksum", checksum);
 		entity.setValue("location", location);
 		entity.setValue("status", status);
-		entity.setValue("tid", tid);
+		//entity.setValue("tid", tid);
+		//entity.setForceId(tid);
 		return entity;
 	}
 
@@ -178,8 +175,10 @@ public class Theme implements Comparable<Theme> {
 		theme.setMediaThumbnail((String) ent.getValue("mediaThumbnail"));
 		theme.setMediaContent((String) ent.getValue("mediaContent"));
 		theme.setLocation((String) ent.getValue("location"));
-		theme.setTid(ent.getValue("tid") != null ? Integer.parseInt((String) ent.getValue("tid")) : 0);
+		//theme.setTid(ent.getValue("tid") != null ? Integer.parseInt((String) ent.getValue("tid")) : 0);
+		theme.setTid(ent.getId());
 		theme.setStatus(ent.getValue("status") != null ? Integer.parseInt((String) ent.getValue("status")) : 0);
+
 		return theme;
 	}
 
