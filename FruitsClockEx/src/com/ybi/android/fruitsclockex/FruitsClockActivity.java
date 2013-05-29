@@ -3,7 +3,10 @@ package com.ybi.android.fruitsclockex;
 import java.util.Iterator;
 import java.util.List;
 
+import android.appwidget.AppWidgetManager;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -24,7 +27,6 @@ import android.widget.Toast;
 
 import com.android.dataframework.DataFramework;
 import com.android.dataframework.Entity;
-import com.ybi.android.fruitsclockex.R;
 
 public class FruitsClockActivity extends FragmentActivity {
 
@@ -104,16 +106,16 @@ public class FruitsClockActivity extends FragmentActivity {
 	void onPostExecute() {
 		Toast.makeText(getApplicationContext(), "Theme update complete.", Toast.LENGTH_SHORT).show();
 		setRefreshActionButtonState(false);
-		FruityListFragment fragment =
-				(FruityListFragment) getSupportFragmentManager().findFragmentByTag(
+		FruitsListFragment fragment =
+				(FruitsListFragment) getSupportFragmentManager().findFragmentByTag(
 						makeFragmentName(R.id.pager, AVAILABLE_FRAGMENT_TAG));
-		populateList(Theme.STATUS_AVAILABLE, fragment);
+		populateList(new int[] { Theme.STATUS_AVAILABLE }, fragment);
 		fragment.getAdapter(getApplicationContext()).notifyDataSetChanged();
 	}
 
 	private void openDatabase() {
 
-		deleteDatabase("themes_db");
+		//deleteDatabase("themes_db");
 
 		try {
 			DataFramework.getInstance().open(this, "com.ybi.android.fruitsclockex");
@@ -121,31 +123,34 @@ public class FruitsClockActivity extends FragmentActivity {
 			Log.e(TAG, "Error getting dataframework instance", e);
 		}
 
-		Theme thme = new Theme();
-		//theme.setTid(i);
-		thme.setDate(System.currentTimeMillis());
-		thme.setDescription("A classical rotating number clock design.");
-		thme.setLink("com.ybi.android.fruitsclockex.theme.lunar");
-		thme.setLocation("http://www.playstore.com");
-		thme.setMediaContent("http://www.something.com/themename/theme.zip");
-		thme.setMediaThumbnail("https://lh6.ggpht.com/sRNlm2cvVKdTRZrK7_VHhmzNPC03wSVX0bXyLlcX05l9dUxV67z5-eXYR_DxxDtLeQ=w256");
-		thme.setStatus(Theme.STATUS_AVAILABLE);
-		thme.setTitle("Lunar Theme");
-		thme.toEntity().save();
 
-		for (int i = 1; i < 10; i++) {
-			Theme theme = new Theme();
-			//theme.setTid(i);
-			theme.setDate(System.currentTimeMillis());
-			theme.setDescription("blablabla");
-			theme.setLink("com.ybi.android.fruitsclockex.theme.something");
-			theme.setLocation("http://www.playstore.com");
-			theme.setMediaContent("http://www.something.com/themename/theme.zip");
-			theme.setMediaThumbnail("https://lh3.ggpht.com/M095gJm09oc3p4Ixb5sEEFDzjQW_shGqq78dSGfXj0AZdB5zmdHAmRhRsq08lcKhjw=w256");
-			theme.setStatus(Theme.STATUS_AVAILABLE);
-			theme.setTitle("Theme #" + i);
-			theme.toEntity().save();
-		}
+
+		//
+		//		Theme thme = new Theme();
+		//		//theme.setTid(i);
+		//		thme.setDate(System.currentTimeMillis());
+		//		thme.setDescription("A classical flipping number clock design.");
+		//		thme.setLink("com.ybi.android.fruitsclockex.theme.lunar");
+		//		thme.setLocation("http://www.playstore.com");
+		//		thme.setMediaContent("http://www.something.com/themename/theme.zip");
+		//		thme.setMediaThumbnail("https://lh6.ggpht.com/sRNlm2cvVKdTRZrK7_VHhmzNPC03wSVX0bXyLlcX05l9dUxV67z5-eXYR_DxxDtLeQ=w256");
+		//		thme.setStatus(Theme.STATUS_AVAILABLE);
+		//		thme.setTitle("Lunar Theme");
+		//		thme.toEntity().save();
+
+		//		for (int i = 1; i < 10; i++) {
+		//			Theme theme = new Theme();
+		//			//theme.setTid(i);
+		//			theme.setDate(System.currentTimeMillis());
+		//			theme.setDescription("blablabla");
+		//			theme.setLink("com.ybi.android.fruitsclockex.theme.something");
+		//			theme.setLocation("http://www.playstore.com");
+		//			theme.setMediaContent("http://www.something.com/themename/theme.zip");
+		//			theme.setMediaThumbnail("https://lh3.ggpht.com/M095gJm09oc3p4Ixb5sEEFDzjQW_shGqq78dSGfXj0AZdB5zmdHAmRhRsq08lcKhjw=w256");
+		//			theme.setStatus(Theme.STATUS_AVAILABLE);
+		//			theme.setTitle("Theme #" + i);
+		//			theme.toEntity().save();
+		//		}
 
 		//		List<Entity> categories = DataFramework.getInstance().getEntityList("themes");
 		//		Iterator<Entity> iter = categories.iterator();
@@ -193,13 +198,13 @@ public class FruitsClockActivity extends FragmentActivity {
 		public Fragment getItem(int position) {
 			// getItem is called to instantiate the fragment for the given page.
 			if (position == 0) {
-				Fragment availableFragment = prepareListFragement(Theme.STATUS_AVAILABLE);
-				((FruityListFragment) availableFragment).attach(availableClickListener);
+				Fragment availableFragment = prepareListFragement(new int[] { Theme.STATUS_AVAILABLE });
+				((FruitsListFragment) availableFragment).attach(availableClickListener);
 				//getSupportFragmentManager().beginTransaction().add(availableFragment, AVAILABLE_FRAGMENT_TAG).commit();
 				return availableFragment;
 			} else if (position == 1) {
-				Fragment installedFragment = prepareListFragement(Theme.STATUS_INSTALLED);
-				((FruityListFragment) installedFragment).attach(installedClickListener);
+				Fragment installedFragment = prepareListFragement(new int[] { Theme.STATUS_INSTALLED, Theme.STATUS_SELECTED });
+				((FruitsListFragment) installedFragment).attach(installedClickListener);
 				//getSupportFragmentManager().beginTransaction().add(installedFragment, AVAILABLE_FRAGMENT_TAG).commit();
 				return installedFragment;
 			} else {
@@ -262,8 +267,8 @@ public class FruitsClockActivity extends FragmentActivity {
 		DataFramework.getInstance().close();
 	}
 
-	private Fragment prepareListFragement(int status) {
-		FruityListFragment fragment = new FruityListFragment();
+	private Fragment prepareListFragement(int[] status) {
+		FruitsListFragment fragment = new FruitsListFragment();
 
 		// populate with the correct status
 		populateList(status, fragment);
@@ -273,8 +278,16 @@ public class FruitsClockActivity extends FragmentActivity {
 		return fragment;
 	}
 
-	private void populateList(int status, FruityListFragment fragment) {
-		List<Entity> categories = DataFramework.getInstance().getEntityList("themes", "status=" + status);
+	private void populateList(int[] status, FruitsListFragment fragment) {
+		// construct the status thing
+		StringBuilder statusList = new StringBuilder();
+		for (int i = 0; i < status.length; i++) {
+			statusList.append("status=" + status[i]);
+			if (i < status.length - 1) {
+				statusList.append(" OR ");
+			}
+		}
+		List<Entity> categories = DataFramework.getInstance().getEntityList("themes", statusList.toString());
 		fragment.getItems().clear();
 		Iterator<Entity> iter = categories.iterator();
 		while (iter.hasNext()) {
@@ -372,15 +385,15 @@ public class FruitsClockActivity extends FragmentActivity {
 		return "android:switcher:" + viewId + ":" + index;
 	}
 
-	private final FruityListClickListener availableClickListener = new FruityListClickListener() {
+	private final FruitsListClickListener availableClickListener = new FruitsListClickListener() {
 		@Override
 		public void onClick(int position) {
 			// do not forget
 			currentAvailableThemeId = position;
 
 			// get the theme
-			FruityListFragment fragment =
-					(FruityListFragment) getSupportFragmentManager().findFragmentByTag(
+			FruitsListFragment fragment =
+					(FruitsListFragment) getSupportFragmentManager().findFragmentByTag(
 							makeFragmentName(R.id.pager, AVAILABLE_FRAGMENT_TAG));
 
 			Theme theme = fragment.getItems().get(position);
@@ -398,14 +411,45 @@ public class FruitsClockActivity extends FragmentActivity {
 
 		}
 	};
-	private final FruityListClickListener installedClickListener = new FruityListClickListener() {
+	private final FruitsListClickListener installedClickListener = new FruitsListClickListener() {
 
 		@Override
 		public void onClick(int position) {
+
 			// do not forget
 			currentInstalledThemeId = position;
 
+			// get the fragment
+			FruitsListFragment installedFragment =
+					(FruitsListFragment) getSupportFragmentManager().findFragmentByTag(
+							makeFragmentName(R.id.pager, INSTALLED_FRAGMENT_TAG));
+
+			// retrieve the theme
+			Theme theme = installedFragment.getItems().get(currentAvailableThemeId);
+
 			// select a theme as active
+			if (ThemeManager.themeInstalledOrNot(theme, getApplicationContext())) {
+				// toast the selection
+				Toast.makeText(getApplicationContext(), "Installing " + theme.getTitle(), Toast.LENGTH_SHORT).show();
+
+				// change status
+				theme.setStatus(Theme.STATUS_SELECTED);
+				theme.toEntity().save();
+
+				// refresh the fragment
+				populateList(new int[] { Theme.STATUS_INSTALLED, Theme.STATUS_SELECTED }, installedFragment);
+				installedFragment.getAdapter(getApplicationContext()).notifyDataSetChanged();
+
+				// save the theme to the sharedpreferences so we don't rely on the database anymore
+				final SharedPreferences prefs = getApplicationContext().getSharedPreferences(NumberFactory.PREFS_FILE, 0);
+				Editor editor = prefs.edit();
+				editor.putString(NumberFactory.PREFS_LINK, theme.getLink());
+				editor.putString(NumberFactory.PREFS_TITLE, theme.getTitle());
+				editor.commit();
+
+				// refresh the widgets
+				refreshWidget();
+			}
 
 		}
 	};
@@ -415,12 +459,12 @@ public class FruitsClockActivity extends FragmentActivity {
 		// retrieve the selected app
 		if (requestCode == REQUEST_CODE && currentAvailableThemeId >= 0) {
 			// retrieve the fragment
-			FruityListFragment availableFragment =
-					(FruityListFragment) getSupportFragmentManager().findFragmentByTag(
+			FruitsListFragment availableFragment =
+					(FruitsListFragment) getSupportFragmentManager().findFragmentByTag(
 							makeFragmentName(R.id.pager, AVAILABLE_FRAGMENT_TAG));
 
-			FruityListFragment installedFragment =
-					(FruityListFragment) getSupportFragmentManager().findFragmentByTag(
+			FruitsListFragment installedFragment =
+					(FruitsListFragment) getSupportFragmentManager().findFragmentByTag(
 							makeFragmentName(R.id.pager, INSTALLED_FRAGMENT_TAG));
 
 			// retrieve the theme
@@ -434,14 +478,24 @@ public class FruitsClockActivity extends FragmentActivity {
 
 				// now is the good time to refresh the two fragment
 				// 1. Available
-				populateList(Theme.STATUS_AVAILABLE, availableFragment);
+				populateList(new int[] { Theme.STATUS_AVAILABLE }, availableFragment);
 				availableFragment.getAdapter(getApplicationContext()).notifyDataSetChanged();
 
 				// 2. Installed
-				populateList(Theme.STATUS_INSTALLED, installedFragment);
+				populateList(new int[] { Theme.STATUS_INSTALLED, Theme.STATUS_SELECTED }, installedFragment);
 				installedFragment.getAdapter(getApplicationContext()).notifyDataSetChanged();
 			}
 		}
+	}
+
+	protected void refreshWidget() {
+		Intent intent = new Intent(this, FruitsClockWidgetProvider.class);
+		intent.setAction("android.appwidget.action.APPWIDGET_UPDATE");
+		// Use an array and EXTRA_APPWIDGET_IDS instead of AppWidgetManager.EXTRA_APPWIDGET_ID,
+		// since it seems the onUpdate() is only fired on that:
+		int[] ids = { R.xml.widget_fruitsclockex };
+		intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids);
+		sendBroadcast(intent);
 	}
 
 }

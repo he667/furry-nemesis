@@ -7,6 +7,7 @@ public class Theme implements Comparable<Theme> {
 	//	final static SimpleDateFormat OUT_FORMATTER = new SimpleDateFormat("yyMMddHHmmssZ", Locale.US);
 	public final static int STATUS_AVAILABLE = 1;
 	public final static int STATUS_INSTALLED = 2;
+	public final static int STATUS_SELECTED = 30;
 
 	private long tid;
 	private String title;
@@ -169,7 +170,7 @@ public class Theme implements Comparable<Theme> {
 	public static Theme fromEntity(Entity ent) {
 		Theme theme = new Theme();
 		theme.setDate(ent.getValue("date") != null ? Long.parseLong((String) ent.getValue("date")) : 0);
-		theme.setDescription((String) ent.getValue("descritption"));
+		theme.setDescription((String) ent.getValue("description"));
 		theme.setLink((String) ent.getValue("link"));
 		theme.setTitle((String) ent.getValue("title"));
 		theme.setMediaThumbnail((String) ent.getValue("mediaThumbnail"));

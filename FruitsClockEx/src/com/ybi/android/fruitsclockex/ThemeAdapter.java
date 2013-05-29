@@ -6,18 +6,15 @@ import java.util.List;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.util.Log;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageLoadingListener;
@@ -39,19 +36,19 @@ public class ThemeAdapter extends BaseAdapter {
 	private final ImageLoadingListener animateFirstListener;
 	private final DisplayImageOptions options;
 
-	private final OnClickListener onClickListener;
+	//private final OnClickListener onClickListener;
 
 	public ThemeAdapter(Context context, List<Theme> listItems) {
 		this.context = context;
 		items = listItems;
-		onClickListener = new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				Log.d(FruitsClockActivity.TAG, "Clicked " + v.getTag());
-				Toast.makeText(ThemeAdapter.this.context, "azdazdazda", Toast.LENGTH_SHORT).show();
-			}
-		};
+		//		onClickListener = new OnClickListener() {
+		//
+		//			@Override
+		//			public void onClick(View v) {
+		//				Log.d(FruitsClockActivity.TAG, "Clicked " + v.getTag());
+		//				Toast.makeText(ThemeAdapter.this.context, "azdazdazda", Toast.LENGTH_SHORT).show();
+		//			}
+		//		};
 
 		options = new DisplayImageOptions.Builder().cacheInMemory().cacheOnDisc().displayer(new RoundedBitmapDisplayer(20)).build();
 
@@ -105,7 +102,7 @@ public class ThemeAdapter extends BaseAdapter {
 
 			// Add The Image!!!
 			iv = (ImageView) localView.findViewById(R.id.imageView1);
-			iv.setOnClickListener(onClickListener);
+			//iv.setOnClickListener(onClickListener);
 			//iv.setScaleType(ImageView.ScaleType.CENTER_CROP);
 			iv.setTag(position);
 
@@ -117,11 +114,16 @@ public class ThemeAdapter extends BaseAdapter {
 			holder.setTv(tv);
 			localView.setTag(holder);
 
-			// and animate
-
 		} else { // Otherwise re-use the converted view
 			localView = convertView;
 			holder = (ViewHolder) localView.getTag();
+		}
+
+		// and animate
+		if (item.getStatus() == Theme.STATUS_SELECTED) {
+			holder.getTv().setTextColor(Color.argb(255, 0, 0, 255));
+		} else {
+			holder.getTv().setTextColor(Color.argb(255, 0, 0, 0));
 		}
 
 		// set the values

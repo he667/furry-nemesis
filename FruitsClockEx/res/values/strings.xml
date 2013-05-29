@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Fruity Clock Ex</string>
+    <string name="app_name">Fruits Clock Ex</string>
     <string name="menu_settings">Settings</string>
     <string name="refresh">Refresh</string>
     <string name="title_section1">THEMES SETTINGS</string>

@@ -63,6 +63,7 @@ public class ThemeManager {
 		// process the array insert only new things
 		if (themes != null && !themes.isEmpty()) {
 			for (Theme theme : themes) {
+				theme.setTid(-1);
 				mergeTheme(theme);
 			}
 		}
@@ -86,6 +87,7 @@ public class ThemeManager {
 	public static boolean themeInstalledOrNot(Theme theme, Context context) {
 		PackageManager pm = context.getPackageManager();
 		boolean app_installed = false;
+		Log.d(FruitsClockActivity.TAG, "Checking for app " + theme.getLink());
 		try {
 			//pm.getPackageInfo(theme.getLink(), PackageManager.GET_ACTIVITIES);
 			pm.getPackageInfo(theme.getLink(), PackageManager.GET_ACTIVITIES);
@@ -93,6 +95,9 @@ public class ThemeManager {
 		} catch (PackageManager.NameNotFoundException e) {
 			app_installed = false;
 		}
+
+		Log.d(FruitsClockActivity.TAG, "Checking for app " + theme.getLink() + " => " + app_installed);
+
 		return app_installed;
 	}
 }

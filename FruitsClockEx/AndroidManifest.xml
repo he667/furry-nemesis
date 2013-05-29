@@ -31,7 +31,7 @@
         <receiver
             android:name="com.ybi.android.fruitsclockex.FruitsClockWidgetProvider"
             android:icon="@drawable/ic_launcher"
-            android:label="Fruits Clock Ex" >
+            android:label="Fruity Clock Ex" >
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>

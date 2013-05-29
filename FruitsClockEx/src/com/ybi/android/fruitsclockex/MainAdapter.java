@@ -5,13 +5,9 @@ import java.util.ArrayList;
 import com.ybi.android.fruitsclockex.R;
 
 import android.content.Context;
-import android.graphics.Point;
-import android.util.Log;
-import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 
@@ -29,14 +25,14 @@ public class MainAdapter extends EndlessAdapter {
 		rotate.setRepeatCount(Animation.INFINITE);
 
 
-		WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-		Display display = wm.getDefaultDisplay();
-		Point size = new Point();
-		display.getSize(size);
-		int width = size.x;
-		int height = size.y;
-		Log.d(FruitsClockActivity.TAG, "WINDOWS SIZE W = " + width);
-		Log.d(FruitsClockActivity.TAG, "WINDOWS SIZE H = " + height);
+		//		WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+		//		Display display = wm.getDefaultDisplay();
+		//		Point size = new Point();
+		//		display.getSize(size);
+		//		int width = size.x;
+		//		int height = size.y;
+		//		Log.d(FruitsClockActivity.TAG, "WINDOWS SIZE W = " + width);
+		//		Log.d(FruitsClockActivity.TAG, "WINDOWS SIZE H = " + height);
 		//02-25 18:52:53.994: D/INR(28520): WINDOWS SIZE W = 768
 		//02-25 18:52:53.994: D/INR(28520): WINDOWS SIZE H = 1184
 
@@ -59,7 +55,6 @@ public class MainAdapter extends EndlessAdapter {
 	@Override
 	protected boolean cacheInBackground() {
 		//SystemClock.sleep(20); // pretend to do work
-
 		return getWrappedAdapter().getCount() < 75;
 	}
 
