@@ -13,12 +13,45 @@
     {
         "checksum": "4b4f49dad7abbd8de4461241126497", 
         "description": "Another flipping number clock design. White background, black numbers.", 
-        "link": "http://www.something.com", 
+        "link": "com.ybi.android.fruitsclockex.theme.champoo", 
         "location": "http://www.playstore.com", 
         "mediaContent": "http://www.something.com/themename/theme.zip", 
         "mediaThumbnail": "https://lh3.ggpht.com/v-idJc93aqWtvpIg-6oKYTQZ05R9PKLRrQBQbo5DO1bqoz76oer-eTjsaw9hStSLrepj",
         "status": 1, 
         "tid": 1, 
         "title": "Champoo Theme "
+     }, 
+    {
+        "checksum": "4b4f49dad7abbd8de4461241126497", 
+        "description": "Numbers made of wood, carved with love and painted with an yellow orange hue. White background.", 
+        "link": "com.ybi.android.fruitsclockex.theme.orawood", 
+        "location": "http://www.playstore.com", 
+        "mediaContent": "http://www.something.com/themename/theme.zip", 
+        "mediaThumbnail": "https://lh3.ggpht.com/v-idJc93aqWtvpIg-6oKYTQZ05R9PKLRrQBQbo5DO1bqoz76oer-eTjsaw9hStSLrepj",
+        "status": 1, 
+        "tid": 2, 
+        "title": "Orawood Theme "
+     }, 
+    {
+        "checksum": "4b4f49dad7abbd8de4461241126497", 
+        "description": "Paperclips colored numbers pinching a piece of paper.", 
+        "link": "com.ybi.android.fruitsclockex.theme.paperclip", 
+        "location": "http://www.playstore.com", 
+        "mediaContent": "http://www.something.com/themename/theme.zip", 
+        "mediaThumbnail": "https://lh3.ggpht.com/v-idJc93aqWtvpIg-6oKYTQZ05R9PKLRrQBQbo5DO1bqoz76oer-eTjsaw9hStSLrepj",
+        "status": 1, 
+        "tid": 3, 
+        "title": "Paperclip Theme "
+     }, 
+    {
+        "checksum": "4b4f49dad7abbd8de4461241126497", 
+        "description": "These numbers come from an old phone with rotating numbers. So retro...", 
+        "link": "com.ybi.android.fruitsclockex.theme.retrophone", 
+        "location": "http://www.playstore.com", 
+        "mediaContent": "http://www.something.com/themename/theme.zip", 
+        "mediaThumbnail": "https://lh3.ggpht.com/v-idJc93aqWtvpIg-6oKYTQZ05R9PKLRrQBQbo5DO1bqoz76oer-eTjsaw9hStSLrepj",
+        "status": 1, 
+        "tid": 4, 
+        "title": "Retrophone Theme "
     } 
 ]

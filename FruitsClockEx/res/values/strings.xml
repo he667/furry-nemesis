@@ -7,6 +7,7 @@
     <string name="title_section1">THEMES SETTINGS</string>
     <string name="title_section2">THEMES DOWNLOADED</string>
     <string name="title_section3">ABOUT </string>
+    <string name="no_data">Press refresh to check for new themes.\n Click on a theme to install it. </string>
     
 
 </resources>

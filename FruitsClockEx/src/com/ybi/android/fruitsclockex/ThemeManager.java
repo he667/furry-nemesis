@@ -71,8 +71,8 @@ public class ThemeManager {
 
 	private static void mergeTheme(Theme theme) {
 		// check fEntityexistence
-		Log.d(FruitsClockActivity.TAG, "Checking theme preexistence " + theme.getTid());
-		List<Entity> previous = DataFramework.getInstance().getEntityList("themes", "tid=" + theme.getTid());
+		Log.d(FruitsClockActivity.TAG, "Checking theme preexistence " + theme.getLink());
+		List<Entity> previous = DataFramework.getInstance().getEntityList("themes", "link='" + theme.getLink() + "'");
 		if (previous != null && previous.isEmpty()) {
 			Log.d(FruitsClockActivity.TAG, "inserting theme " + theme.getTid());
 			theme.toEntity().save();

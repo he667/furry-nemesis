@@ -39,10 +39,9 @@ public class FruitsClockActivity extends FragmentActivity {
 	private ViewPager mViewPager;
 	private RefreshTask task;
 	private Menu optionsMenu;
+
 	private int currentAvailableThemeId;
 	private int currentInstalledThemeId;
-
-
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -425,12 +424,22 @@ public class FruitsClockActivity extends FragmentActivity {
 							makeFragmentName(R.id.pager, INSTALLED_FRAGMENT_TAG));
 
 			// retrieve the theme
-			Theme theme = installedFragment.getItems().get(currentAvailableThemeId);
+			Theme theme = installedFragment.getItems().get(currentInstalledThemeId);
 
 			// select a theme as active
 			if (ThemeManager.themeInstalledOrNot(theme, getApplicationContext())) {
 				// toast the selection
 				Toast.makeText(getApplicationContext(), "Installing " + theme.getTitle(), Toast.LENGTH_SHORT).show();
+
+				// unselect the only supposed one theme
+				List<Entity> categories = DataFramework.getInstance().getEntityList("themes", "status=" + Theme.STATUS_SELECTED);
+				Iterator<Entity> iter = categories.iterator();
+				while (iter.hasNext()) {
+					Entity ent = iter.next();
+					Theme localTheme = Theme.fromEntity(ent);
+					localTheme.setStatus(Theme.STATUS_INSTALLED);
+					localTheme.toEntity().save();
+				}
 
 				// change status
 				theme.setStatus(Theme.STATUS_SELECTED);
