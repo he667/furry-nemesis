@@ -33,7 +33,10 @@ public class ThemeNumber implements Number {
 
 			int resID;
 
-			if (numberValue == 0) {
+			if (numberValue == -1) {
+				resID = resources.getIdentifier("tbg", "drawable", themeLink);
+				pos = 0;
+			} else if (numberValue == 0) {
 				resID = resources.getIdentifier("t1_10", "drawable", themeLink);
 			} else {
 				resID = resources.getIdentifier("t1_0" + numberValue, "drawable", themeLink);

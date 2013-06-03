@@ -32,9 +32,10 @@ public class FruitsClockWidgetRenderer {
 		Number hour = NumberFactory.getInstance(context).getNumber().set(h - (int) (h / 10.0f) * 10);
 		Number minTen = NumberFactory.getInstance(context).getNumber().set(m / 10);
 		Number min = NumberFactory.getInstance(context).getNumber().set(m - (int) (m / 10.0f) * 10);
+		Number background = NumberFactory.getInstance(context).getNumber().set(-1);
 
 		// lets build it
-		Bitmap bitmap = ClockBuilder.buildClock(context, hourTen, hour, minTen, min);
+		Bitmap bitmap = ClockBuilder.buildClock(context, hourTen, hour, minTen, min, background);
 
 		//		canvas.drawCircle(xSize / 8, ySize / 2, xSize / 8 - 4, p);
 		//		canvas.drawCircle(3 * xSize / 8, ySize / 2, xSize / 8 - 4, p);

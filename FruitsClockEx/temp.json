@@ -53,5 +53,38 @@
         "status": 1, 
         "tid": 4, 
         "title": "Retrophone Theme "
+    } ,
+       {
+        "checksum": "4b4f49dad7abbd8de4461241126497", 
+        "description": "Ultra classic liquid cristal display.", 
+        "link": "com.ybi.android.fruitsclockex.theme.liquid", 
+        "location": "http://www.playstore.com", 
+        "mediaContent": "http://www.something.com/themename/theme.zip", 
+        "mediaThumbnail": "https://lh3.ggpht.com/v-idJc93aqWtvpIg-6oKYTQZ05R9PKLRrQBQbo5DO1bqoz76oer-eTjsaw9hStSLrepj",
+        "status": 1, 
+        "tid": 4, 
+        "title": "Liquid Theme "
+    } ,
+       {
+        "checksum": "4b4f49dad7abbd8de4461241126497", 
+        "description": "It all started with this theme... some fruits some numbers...", 
+        "link": "com.ybi.android.fruitsclockex.theme.original", 
+        "location": "http://www.playstore.com", 
+        "mediaContent": "http://www.something.com/themename/theme.zip", 
+        "mediaThumbnail": "https://lh3.ggpht.com/v-idJc93aqWtvpIg-6oKYTQZ05R9PKLRrQBQbo5DO1bqoz76oer-eTjsaw9hStSLrepj",
+        "status": 1, 
+        "tid": 4, 
+        "title": "Original Theme "
+    } ,
+       {
+        "checksum": "4b4f49dad7abbd8de4461241126497", 
+        "description": "An original dotted theme with pastel colors and rounded pins...", 
+        "link": "com.ybi.android.fruitsclockex.theme.dotted", 
+        "location": "http://www.playstore.com", 
+        "mediaContent": "http://www.something.com/themename/theme.zip", 
+        "mediaThumbnail": "https://lh3.ggpht.com/v-idJc93aqWtvpIg-6oKYTQZ05R9PKLRrQBQbo5DO1bqoz76oer-eTjsaw9hStSLrepj",
+        "status": 1, 
+        "tid": 4, 
+        "title": "Dotted Theme "
     } 
 ]

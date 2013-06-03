@@ -11,7 +11,7 @@ import android.util.Log;
 
 public class ClockBuilder {
 
-	static Bitmap buildClock(Context context, Number hourTen, Number hour, Number minTen, Number min) {
+	static Bitmap buildClock(Context context, Number hourTen, Number hour, Number minTen, Number min, Number background) {
 		DisplayMetrics metrics = context.getResources().getDisplayMetrics();
 		//android:minHeight="72dp"
 		//android:minWidth="146dp"
@@ -54,6 +54,8 @@ public class ClockBuilder {
 		p.setSubpixelText(true);
 		p.setStyle(Paint.Style.FILL);
 		p.setColor(Color.WHITE);
+
+		background.draw(xSize, ySize, -1, canvas, p);
 
 		hourTen.draw(xSize, ySize, 0, canvas, p);
 		hour.draw(xSize, ySize, 1, canvas, p);

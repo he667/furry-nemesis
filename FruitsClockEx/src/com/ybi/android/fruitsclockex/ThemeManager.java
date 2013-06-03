@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import android.content.Context;
@@ -65,6 +66,51 @@ public class ThemeManager {
 			for (Theme theme : themes) {
 				theme.setTid(-1);
 				mergeTheme(theme);
+			}
+		}
+
+		// check the installed themes and synchronize them if needed
+		checkThemes(applicationContext);
+
+	}
+
+	private static void checkThemes(Context context) {
+		Log.d(FruitsClockActivity.TAG, "Checking theme existence ");
+
+		// check all theme even the available ones...
+		int[] status = new int[] { Theme.STATUS_INSTALLED, Theme.STATUS_SELECTED, Theme.STATUS_AVAILABLE };
+
+		// create the where part of the request
+		StringBuilder statusList = new StringBuilder();
+		for (int i = 0; i < status.length; i++) {
+			statusList.append("status=" + status[i]);
+			if (i < status.length - 1) {
+				statusList.append(" OR ");
+			}
+		}
+
+		// go get them please
+		List<Entity> categories = DataFramework.getInstance().getEntityList("themes", statusList.toString());
+
+		// now lets check them
+		Iterator<Entity> iter = categories.iterator();
+		while (iter.hasNext()) {
+			Entity ent = iter.next();
+			Theme theme = Theme.fromEntity(ent);
+			if (theme.getLink() != null) {
+				if (!themeInstalledOrNot(theme, context)) {
+					// the theme has been kind of removed so lets say it's not installed
+					theme.setStatus(Theme.STATUS_AVAILABLE);
+					theme.toEntity().save();
+				} else {
+					// if the theme is available change it's status to installed
+					theme.setStatus(Theme.STATUS_INSTALLED);
+					theme.toEntity().save();
+				}
+			} else {
+				// the theme has no lingk, get out of my database...
+				// never happend
+				theme.toEntity().delete();
 			}
 		}
 	}

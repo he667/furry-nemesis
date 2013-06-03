@@ -16,13 +16,11 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.dataframework.DataFramework;
@@ -103,13 +101,22 @@ public class FruitsClockActivity extends FragmentActivity {
 	}
 
 	void onPostExecute() {
-		Toast.makeText(getApplicationContext(), "Theme update complete.", Toast.LENGTH_SHORT).show();
+		Toast.makeText(getApplicationContext(), "Themes update complete.", Toast.LENGTH_SHORT).show();
 		setRefreshActionButtonState(false);
-		FruitsListFragment fragment =
+
+		// refresh the available themes
+		FruitsListFragment availableFragment =
 				(FruitsListFragment) getSupportFragmentManager().findFragmentByTag(
 						makeFragmentName(R.id.pager, AVAILABLE_FRAGMENT_TAG));
-		populateList(new int[] { Theme.STATUS_AVAILABLE }, fragment);
-		fragment.getAdapter(getApplicationContext()).notifyDataSetChanged();
+		populateList(new int[] { Theme.STATUS_AVAILABLE }, availableFragment);
+		availableFragment.getAdapter(getApplicationContext()).notifyDataSetChanged();
+
+		// refresh the installed / selected themes
+		FruitsListFragment installedFragment =
+				(FruitsListFragment) getSupportFragmentManager().findFragmentByTag(
+						makeFragmentName(R.id.pager, INSTALLED_FRAGMENT_TAG));
+		populateList(new int[] { Theme.STATUS_INSTALLED, Theme.STATUS_SELECTED }, installedFragment);
+		installedFragment.getAdapter(getApplicationContext()).notifyDataSetChanged();
 	}
 
 	private void openDatabase() {
@@ -235,15 +242,8 @@ public class FruitsClockActivity extends FragmentActivity {
 		}
 	}
 
-	/**
-	 * A dummy fragment representing a section of the app, but that simply
-	 * displays dummy text.
-	 */
 	public static class GenericSectionFragment extends Fragment {
-		/**
-		 * The fragment argument representing the section number for this
-		 * fragment.
-		 */
+
 		public static final String ARG_SECTION_NUMBER = "section_number";
 
 		public GenericSectionFragment() {
@@ -251,13 +251,10 @@ public class FruitsClockActivity extends FragmentActivity {
 
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-			// Create a new TextView and set its text to the fragment's section
-			// number argument value.
-			TextView textView = new TextView(getActivity());
-			textView.setGravity(Gravity.CENTER);
-			textView.setText(Integer.toString(getArguments().getInt(ARG_SECTION_NUMBER)));
-			return textView;
+			View view = inflater.inflate(R.layout.about_layout, null);
+			return view;
 		}
+
 	}
 
 	@Override

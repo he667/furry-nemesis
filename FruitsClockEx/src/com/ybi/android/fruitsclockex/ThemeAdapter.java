@@ -122,14 +122,18 @@ public class ThemeAdapter extends BaseAdapter {
 		// and animate
 		if (item.getStatus() == Theme.STATUS_SELECTED) {
 			holder.getTv().setTextColor(Color.argb(255, 0, 0, 255));
+			holder.getTv().setText(">" + item.getTitle());
+			holder.getTv().setTextAppearance(context, R.style.selected);
 		} else {
 			holder.getTv().setTextColor(Color.argb(255, 0, 0, 0));
+			holder.getTv().setText(item.getTitle());
+			holder.getTv().setTextAppearance(context, R.style.unselected);
 		}
 
 		// set the values
 		//holder.getIv().setImageBitmap(BitmapFactory.decodeFile(item.getMediaThumbnail()));
 		ImageLoader.getInstance().displayImage(item.getMediaThumbnail(), holder.getIv(), options, animateFirstListener);
-		holder.getTv().setText(item.getTitle());
+
 		holder.getCv().setText(item.getDescription());
 
 		localView.setId(position);
