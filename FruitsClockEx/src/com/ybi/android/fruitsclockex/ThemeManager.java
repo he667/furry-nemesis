@@ -21,7 +21,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class ThemeManager {
 
-	private static final String THEMES_LOCATION = "http://www.bnto.net/fruityclock/themes.json";
+	private static final String THEMES_LOCATION = "http://www.bnto.net/fruitsclockex/themes.json";
 	private static final String ENCODING = "UTF-8";
 
 	public static void downloadThemes(Context applicationContext) {
