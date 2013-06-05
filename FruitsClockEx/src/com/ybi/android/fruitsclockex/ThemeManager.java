@@ -122,6 +122,15 @@ public class ThemeManager {
 		if (previous != null && previous.isEmpty()) {
 			Log.d(FruitsClockActivity.TAG, "inserting theme " + theme.getTid());
 			theme.toEntity().save();
+		} else if (previous.size() == 1) {
+			Theme otheme = Theme.fromEntity(previous.get(0));
+			otheme.setDescription(theme.getDescription());
+			otheme.setLink(theme.getLink());
+			otheme.setLocation(theme.getLocation());
+			otheme.setMediaContent(theme.getMediaContent());
+			otheme.setMediaThumbnail(theme.getMediaThumbnail());
+			otheme.setTitle(theme.getTitle());
+			otheme.toEntity().save();
 		}
 	}
 

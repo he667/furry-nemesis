@@ -5,7 +5,7 @@
         "link": "com.ybi.android.fruitsclockex.theme.lunar", 
         "location": "http://play.google.com", 
         "mediaContent": "", 
-        "mediaThumbnail": "https://lh3.ggpht.com/v-idJc93aqWtvpIg-6oKYTQZ05R9PKLRrQBQbo5DO1bqoz76oer-eTjsaw9hStSLrepj",
+        "mediaThumbnail": "http://www.bnto.net/fruitsclockex/theme_lunar.jpg",
         "status": 1, 
         "tid": 0, 
         "title": "Lunar Theme"
@@ -16,7 +16,7 @@
         "link": "com.ybi.android.fruitsclockex.theme.champoo", 
         "location": "http://www.playstore.com", 
         "mediaContent": "http://www.something.com/themename/theme.zip", 
-        "mediaThumbnail": "https://lh3.ggpht.com/v-idJc93aqWtvpIg-6oKYTQZ05R9PKLRrQBQbo5DO1bqoz76oer-eTjsaw9hStSLrepj",
+        "mediaThumbnail": "http://www.bnto.net/fruitsclockex/theme_champoo.jpg",
         "status": 1, 
         "tid": 1, 
         "title": "Champoo Theme "
@@ -27,7 +27,7 @@
         "link": "com.ybi.android.fruitsclockex.theme.orawood", 
         "location": "http://www.playstore.com", 
         "mediaContent": "http://www.something.com/themename/theme.zip", 
-        "mediaThumbnail": "https://lh3.ggpht.com/v-idJc93aqWtvpIg-6oKYTQZ05R9PKLRrQBQbo5DO1bqoz76oer-eTjsaw9hStSLrepj",
+        "mediaThumbnail": "http://www.bnto.net/fruitsclockex/theme_orawood.jpg",
         "status": 1, 
         "tid": 2, 
         "title": "Orawood Theme "
@@ -38,7 +38,7 @@
         "link": "com.ybi.android.fruitsclockex.theme.paperclip", 
         "location": "http://www.playstore.com", 
         "mediaContent": "http://www.something.com/themename/theme.zip", 
-        "mediaThumbnail": "https://lh3.ggpht.com/v-idJc93aqWtvpIg-6oKYTQZ05R9PKLRrQBQbo5DO1bqoz76oer-eTjsaw9hStSLrepj",
+        "mediaThumbnail": "http://www.bnto.net/fruitsclockex/theme_paperclip.jpg",
         "status": 1, 
         "tid": 3, 
         "title": "Paperclip Theme "
@@ -49,7 +49,7 @@
         "link": "com.ybi.android.fruitsclockex.theme.retrophone", 
         "location": "http://www.playstore.com", 
         "mediaContent": "http://www.something.com/themename/theme.zip", 
-        "mediaThumbnail": "https://lh3.ggpht.com/v-idJc93aqWtvpIg-6oKYTQZ05R9PKLRrQBQbo5DO1bqoz76oer-eTjsaw9hStSLrepj",
+        "mediaThumbnail": "http://www.bnto.net/fruitsclockex/theme_retrophone.jpg",
         "status": 1, 
         "tid": 4, 
         "title": "Retrophone Theme "
@@ -60,7 +60,7 @@
         "link": "com.ybi.android.fruitsclockex.theme.liquid", 
         "location": "http://www.playstore.com", 
         "mediaContent": "http://www.something.com/themename/theme.zip", 
-        "mediaThumbnail": "https://lh3.ggpht.com/v-idJc93aqWtvpIg-6oKYTQZ05R9PKLRrQBQbo5DO1bqoz76oer-eTjsaw9hStSLrepj",
+        "mediaThumbnail": "http://www.bnto.net/fruitsclockex/theme_liquid.jpg",
         "status": 1, 
         "tid": 4, 
         "title": "Liquid Theme "
@@ -71,7 +71,7 @@
         "link": "com.ybi.android.fruitsclockex.theme.original", 
         "location": "http://www.playstore.com", 
         "mediaContent": "http://www.something.com/themename/theme.zip", 
-        "mediaThumbnail": "https://lh3.ggpht.com/v-idJc93aqWtvpIg-6oKYTQZ05R9PKLRrQBQbo5DO1bqoz76oer-eTjsaw9hStSLrepj",
+        "mediaThumbnail": "http://www.bnto.net/fruitsclockex/theme_original.jpg",
         "status": 1, 
         "tid": 4, 
         "title": "Original Theme "
@@ -82,7 +82,7 @@
         "link": "com.ybi.android.fruitsclockex.theme.dotted", 
         "location": "http://www.playstore.com", 
         "mediaContent": "http://www.something.com/themename/theme.zip", 
-        "mediaThumbnail": "https://lh3.ggpht.com/v-idJc93aqWtvpIg-6oKYTQZ05R9PKLRrQBQbo5DO1bqoz76oer-eTjsaw9hStSLrepj",
+        "mediaThumbnail": "http://www.bnto.net/fruitsclockex/theme_dotted.jpg",
         "status": 1, 
         "tid": 4, 
         "title": "Dotted Theme "
