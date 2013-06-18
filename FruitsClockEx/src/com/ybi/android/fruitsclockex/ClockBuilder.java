@@ -13,8 +13,22 @@ public class ClockBuilder {
 
 	static Bitmap buildClock(Context context, Number hourTen, Number hour, Number minTen, Number min, Number background) {
 		DisplayMetrics metrics = context.getResources().getDisplayMetrics();
+		//		<!-- size = (74 x n) - 2 -->
+		//		<dimen name="appwidget_margin">0dp</dimen>
+		//		<dimen name="appwidget_min_width">294dp</dimen>
+		//		<dimen name="appwidget_min_height">72dp</dimen>
 		//android:minHeight="72dp"
 		//android:minWidth="146dp"
+
+		//		and for res/values-v14/dimens.xml:
+		//
+		//		<!-- size = (70 x n) - 30 -->
+		//		<dimen name="appwidget_margin">0dp</dimen>
+		//		<dimen name="appwidget_min_width">250dp</dimen>
+		//		<dimen name="appwidget_min_height">40dp</dimen>
+		//android:minHeight="40dp"
+		//android:minWidth="110dp"
+
 		// pixels = dps * (density / 160)
 		//		05-29 17:30:00.018: D/FruitsClockEx(12601): Metrics xdpi 319.79
 		//		05-29 17:30:00.018: D/FruitsClockEx(12601): Metrics ydpi 318.745
@@ -35,6 +49,12 @@ public class ClockBuilder {
 		//0.9125
 		//0.45
 
+		//		06-16 15:06:00.011: D/FruitsClockEx(12149): Metrics xdpi 149.82489 ->
+		//		06-16 15:06:00.021: D/FruitsClockEx(12149): Metrics ydpi 150.51852
+		//		06-16 15:06:00.021: D/FruitsClockEx(12149): Metrics densityDpi 160
+		//		06-16 15:06:00.021: D/FruitsClockEx(12149): Metrics xSize 136 -> 36
+		//		06-16 15:06:00.021: D/FruitsClockEx(12149): Metrics ySize 67 -> 67
+
 		int xSize = (int) (146f * (metrics.xdpi / 160f));
 		int ySize = (int) (72f * (metrics.ydpi / 160f));
 		Log.d(FruitsClockActivity.TAG, "Metrics xdpi " + metrics.xdpi);
@@ -45,12 +65,12 @@ public class ClockBuilder {
 
 		// bitmap preparation
 		Bitmap bitmap = Bitmap.createBitmap(xSize, ySize, Config.ARGB_8888);
-		bitmap.setDensity(metrics.densityDpi);
+		bitmap.setDensity((int) metrics.xdpi);
 
 		// canvas preparation
 		Canvas canvas = new Canvas(bitmap);
 		Paint p = new Paint();
-		p.setAntiAlias(true);
+		p.setAntiAlias(false);
 		p.setSubpixelText(true);
 		p.setStyle(Paint.Style.FILL);
 		p.setColor(Color.WHITE);
