@@ -1,4 +1,4 @@
-package com.ybi.android.fruitsclockex.theme.retrophone;
+package com.ybi.android.fruitsclockex.theme.losange;
 
 import android.os.Bundle;
 import android.app.Activity;
