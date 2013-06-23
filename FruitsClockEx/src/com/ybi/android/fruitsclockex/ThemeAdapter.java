@@ -50,7 +50,7 @@ public class ThemeAdapter extends BaseAdapter {
 		//			}
 		//		};
 
-		options = new DisplayImageOptions.Builder().cacheInMemory().cacheOnDisc().displayer(new RoundedBitmapDisplayer(20)).build();
+		options = new DisplayImageOptions.Builder().cacheInMemory().cacheOnDisc().displayer(new FadeInBitmapDisplayer(20)).build();
 
 		animateFirstListener = new AnimateFirstDisplayListener();
 
