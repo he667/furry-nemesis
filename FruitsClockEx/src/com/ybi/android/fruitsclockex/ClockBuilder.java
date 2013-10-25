@@ -7,7 +7,6 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.DisplayMetrics;
-import android.util.Log;
 
 public class ClockBuilder {
 
@@ -57,11 +56,6 @@ public class ClockBuilder {
 
 		int xSize = (int) (146f * (metrics.xdpi / 160f));
 		int ySize = (int) (72f * (metrics.ydpi / 160f));
-		Log.d(FruitsClockActivity.TAG, "Metrics xdpi " + metrics.xdpi);
-		Log.d(FruitsClockActivity.TAG, "Metrics ydpi " + metrics.ydpi);
-		Log.d(FruitsClockActivity.TAG, "Metrics densityDpi " + metrics.densityDpi);
-		Log.d(FruitsClockActivity.TAG, "Metrics xSize " + xSize);
-		Log.d(FruitsClockActivity.TAG, "Metrics ySize " + ySize);
 
 		// bitmap preparation
 		Bitmap bitmap = Bitmap.createBitmap(xSize, ySize, Config.ARGB_8888);
