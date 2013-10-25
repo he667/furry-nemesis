@@ -62,7 +62,7 @@
         "mediaContent": "http://www.something.com/themename/theme.zip", 
         "mediaThumbnail": "http://www.bnto.net/fruitsclockex/theme_liquid.jpg",
         "status": 1, 
-        "tid": 4, 
+        "tid": 5, 
         "title": "Liquid Theme "
     } ,
        {
@@ -73,7 +73,7 @@
         "mediaContent": "http://www.something.com/themename/theme.zip", 
         "mediaThumbnail": "http://www.bnto.net/fruitsclockex/theme_original.jpg",
         "status": 1, 
-        "tid": 4, 
+        "tid": 6, 
         "title": "Original Theme "
     } ,
        {
@@ -84,7 +84,73 @@
         "mediaContent": "http://www.something.com/themename/theme.zip", 
         "mediaThumbnail": "http://www.bnto.net/fruitsclockex/theme_dotted.jpg",
         "status": 1, 
-        "tid": 4, 
+        "tid": 7, 
         "title": "Dotted Theme "
-    } 
+    } ,
+       {
+        "checksum": "4b4f49dad7abbd8de4461241126497", 
+        "description": "Graffiti style on your phone. Works great with urban wallpapers.", 
+        "link": "com.ybi.android.fruitsclockex.theme.fanty", 
+        "location": "http://www.playstore.com", 
+        "mediaContent": "http://www.something.com/themename/theme.zip", 
+        "mediaThumbnail": "http://www.bnto.net/fruitsclockex/theme_fanty.jpg",
+        "status": 1, 
+        "tid": 8, 
+        "title": "Fanty Theme "
+    },
+       {
+        "checksum": "4b4f49dad7abbd8de4461241126497", 
+        "description": "Nothing to do with the war machines. Here, we just have nice handmade sketched clock with funny green touches.", 
+        "link": "com.ybi.android.fruitsclockex.theme.greenberet", 
+        "location": "http://www.playstore.com", 
+        "mediaContent": "http://www.something.com/themename/theme.zip", 
+        "mediaThumbnail": "http://www.bnto.net/fruitsclockex/theme_greenberet.jpg",
+        "status": 1, 
+        "tid": 9, 
+        "title": "Greenberet Theme "
+    },
+       {
+        "checksum": "4b4f49dad7abbd8de4461241126497", 
+        "description": "Sharp lines, pieces of shard, crystal faces, a losange theme for fruits clock...", 
+        "link": "com.ybi.android.fruitsclockex.theme.losange", 
+        "location": "http://www.playstore.com", 
+        "mediaContent": "http://www.something.com/themename/theme.zip", 
+        "mediaThumbnail": "http://www.bnto.net/fruitsclockex/theme_losange.jpg",
+        "status": 1, 
+        "tid": 10, 
+        "title": "LosangeTheme "
+    },
+       {
+        "checksum": "4b4f49dad7abbd8de4461241126497", 
+        "description": "Inverted theme with an design from the very old century of classic music...", 
+        "link": "com.ybi.android.fruitsclockex.theme.mozart", 
+        "location": "http://www.playstore.com", 
+        "mediaContent": "http://www.something.com/themename/theme.zip", 
+        "mediaThumbnail": "http://www.bnto.net/fruitsclockex/theme_mozart.jpg",
+        "status": 1, 
+        "tid": 11, 
+        "title": "Mozart Theme "
+    },
+       {
+        "checksum": "4b4f49dad7abbd8de4461241126497", 
+        "description": "Prism a cube inspired theme. Remembrance of this nintendo gamecube intro.", 
+        "link": "com.ybi.android.fruitsclockex.theme.prism", 
+        "location": "http://www.playstore.com", 
+        "mediaContent": "http://www.something.com/themename/theme.zip", 
+        "mediaThumbnail": "http://www.bnto.net/fruitsclockex/theme_prism.jpg",
+        "status": 1, 
+        "tid": 12, 
+        "title": "Prism Theme "
+    },
+       {
+        "checksum": "4b4f49dad7abbd8de4461241126497", 
+        "description": "Wetnu is the slang word for amazing blocks from the iron moutain. Nah joking... it doesnt mean anything. I just made it.", 
+        "link": "com.ybi.android.fruitsclockex.theme.wetnu", 
+        "location": "http://www.playstore.com", 
+        "mediaContent": "http://www.something.com/themename/theme.zip", 
+        "mediaThumbnail": "http://www.bnto.net/fruitsclockex/theme_wetnu.jpg",
+        "status": 1, 
+        "tid": 13, 
+        "title": "Wetnu Theme "
+    }
 ]

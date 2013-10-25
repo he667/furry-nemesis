@@ -1,7 +1,10 @@
 package com.ybi.android.fruitsclockex;
 
 import com.android.dataframework.Entity;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+
+@JsonIgnoreProperties({"checksum"})
 public class Theme implements Comparable<Theme> {
 	//	final static SimpleDateFormat IN_FORMATTER = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss Z", Locale.US);
 	//	final static SimpleDateFormat OUT_FORMATTER = new SimpleDateFormat("yyMMddHHmmssZ", Locale.US);
