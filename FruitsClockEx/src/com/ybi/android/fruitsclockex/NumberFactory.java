@@ -2,7 +2,6 @@ package com.ybi.android.fruitsclockex;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Log;
 
 public class NumberFactory {
 
@@ -21,8 +20,8 @@ public class NumberFactory {
 		final SharedPreferences prefs = context.getSharedPreferences(PREFS_FILE, 0);
 		String link = prefs.getString(PREFS_LINK, null);
 		String title = prefs.getString(PREFS_TITLE, null);
-		Log.d(FruitsClockActivity.TAG, "Theme in sharedprfs link = " + link);
-		Log.d(FruitsClockActivity.TAG, "Theme in sharedprfs title = " + title);
+		//Log.d(FruitsClockActivity.TAG, "Theme in sharedprfs link = " + link);
+		//Log.d(FruitsClockActivity.TAG, "Theme in sharedprfs title = " + title);
 		if (link != null && title != null) {
 			// this is what im looking for
 			instance.setThemeLink(link);
@@ -45,7 +44,11 @@ public class NumberFactory {
 		//		default:
 		//			return new FlippingNumber();
 		//		}
-		if (themeLink != null) {
+
+		if (themeLink != null && themeLink.equalsIgnoreCase("com.ybi.android.fruitsclockex.theme.dev")) {
+			// this the dev theme
+			return new DevThemeNumber();
+		} else if (themeLink != null) {
 			return new ThemeNumber(context, themeLink);
 		} else {
 			return new RealNumber();
@@ -62,5 +65,13 @@ public class NumberFactory {
 
 	public void setContext(Context context) {
 		this.context = context;
+	}
+
+	public String getThemeLink() {
+		return themeLink;
+	}
+
+	public String getThemeTitle() {
+		return themeTitle;
 	}
 }
