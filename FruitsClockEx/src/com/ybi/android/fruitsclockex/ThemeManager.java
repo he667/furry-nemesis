@@ -21,7 +21,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class ThemeManager {
 
-	private static final String THEMES_LOCATION = "http://www.bnto.net/fruitsclockex/themes.json";
+	private static final String THEMES_LOCATION = "http://www.bnto.net/fruitsclockex/themes_hidden.json";
 	private static final String ENCODING = "UTF-8";
 
 	public static void downloadThemes(Context applicationContext) {
@@ -34,10 +34,16 @@ public class ThemeManager {
 		try {
 			URL url = new URL(THEMES_LOCATION);
 			urlConnection = (HttpURLConnection) url.openConnection();
+			urlConnection.setDefaultUseCaches(false);
+			urlConnection.setUseCaches(false);
+			urlConnection.setDoInput(true);
+			urlConnection.setDoOutput(false);   
+			urlConnection.setRequestMethod("GET");
+			urlConnection.setRequestProperty("Pragma", "no-cache");
+			urlConnection.setRequestProperty("Cache-Control", "no-cache");
+			urlConnection.setRequestProperty("Expires", "-1");
 			InputStream in = new BufferedInputStream(urlConnection.getInputStream());
 			result = convertStreamToString(in);
-
-			Log.d(FruitsClockActivity.TAG, "Downloaded themes " + result);
 
 		} catch (IOException e) {
 			Log.e(FruitsClockActivity.TAG, "Error IO Exception downloading theme", e);
@@ -55,9 +61,9 @@ public class ThemeManager {
 				});
 
 			} catch (JsonProcessingException e) {
-				Log.d(FruitsClockActivity.TAG, "Error === ", e);
+				Log.e(FruitsClockActivity.TAG, "Error === ", e);
 			} catch (IOException e) {
-				Log.d(FruitsClockActivity.TAG, "Error === ", e);
+				Log.e(FruitsClockActivity.TAG, "Error === ", e);
 			}
 		}
 
@@ -65,6 +71,7 @@ public class ThemeManager {
 		if (themes != null && !themes.isEmpty()) {
 			for (Theme theme : themes) {
 				theme.setTid(-1);
+				Log.d(FruitsClockActivity.TAG, "Downloaded themes " + theme.getTitle());
 				mergeTheme(theme);
 			}
 		}

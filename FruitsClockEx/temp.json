@@ -152,8 +152,7 @@
         "status": 1, 
         "tid": 13, 
         "title": "Wetnu Theme "
-    }
-,
+    },
        {
         "checksum": "4b4f49dad7abbd8de4461241126497", 
         "description": "...", 
@@ -164,8 +163,7 @@
         "status": 1, 
         "tid": 14, 
         "title": "Kadir Theme "
-    }
-,
+    },
        {
         "checksum": "4b4f49dad7abbd8de4461241126497", 
         "description": "This is a developper/designer theme. With this theme you can create your own clock with your very own png without any android knowledge. More instructions on the Fruits Clock Ex website (http://www.bnto.net/fruitsclockex).", 
@@ -176,9 +174,7 @@
         "status": 1, 
         "tid": 15, 
         "title": "Dev Theme "
-    }
-
-,
+    },
        {
         "checksum": "4b4f49dad7abbd8de4461241126497", 
         "description": "...", 
@@ -189,9 +185,7 @@
         "status": 1, 
         "tid": 16, 
         "title": "Dflower Theme "
-    }
-
-,
+    },
        {
         "checksum": "4b4f49dad7abbd8de4461241126497", 
         "description": "...", 
@@ -202,9 +196,7 @@
         "status": 1, 
         "tid": 17, 
         "title": "Elements Theme "
-    }
-
-,
+    },
        {
         "checksum": "4b4f49dad7abbd8de4461241126497", 
         "description": "...", 
@@ -215,9 +207,7 @@
         "status": 1, 
         "tid": 18, 
         "title": "Fade Theme "
-    }
-
-,
+    },
        {
         "checksum": "4b4f49dad7abbd8de4461241126497", 
         "description": "...", 
@@ -228,9 +218,7 @@
         "status": 1, 
         "tid": 13, 
         "title": "Force Theme "
-    }
-
-,
+    },
        {
         "checksum": "4b4f49dad7abbd8de4461241126497", 
         "description": "...", 
@@ -241,9 +229,7 @@
         "status": 1, 
         "tid": 19, 
         "title": "Funky Theme "
-    }
-
-,
+    },
        {
         "checksum": "4b4f49dad7abbd8de4461241126497", 
         "description": "...", 
@@ -254,9 +240,7 @@
         "status": 1, 
         "tid": 20, 
         "title": "Molti Theme "
-    }
-
-,
+    },
        {
         "checksum": "4b4f49dad7abbd8de4461241126497", 
         "description": "...", 
@@ -267,9 +251,7 @@
         "status": 1, 
         "tid": 21, 
         "title": "Oldschool Theme "
-    }
-
-,
+    },
        {
         "checksum": "4b4f49dad7abbd8de4461241126497", 
         "description": "...", 
@@ -280,9 +262,7 @@
         "status": 1, 
         "tid": 22, 
         "title": "Ribbon Theme "
-    }
-
-,
+    },
        {
         "checksum": "4b4f49dad7abbd8de4461241126497", 
         "description": "...", 
@@ -293,9 +273,7 @@
         "status": 1, 
         "tid": 23, 
         "title": "Sheet Theme "
-    }
-
-,
+    },
        {
         "checksum": "4b4f49dad7abbd8de4461241126497", 
         "description": "...", 
@@ -306,9 +284,7 @@
         "status": 1, 
         "tid": 24, 
         "title": "Simplex Theme "
-    }
-
-,
+    },
        {
         "checksum": "4b4f49dad7abbd8de4461241126497", 
         "description": "...", 
@@ -319,9 +295,7 @@
         "status": 1, 
         "tid": 25, 
         "title": "Splat Theme "
-    }
-
-,
+    },
        {
         "checksum": "4b4f49dad7abbd8de4461241126497", 
         "description": "...", 
@@ -332,9 +306,7 @@
         "status": 1, 
         "tid": 26, 
         "title": "Splice Theme "
-    }
-
-,
+    },
        {
         "checksum": "4b4f49dad7abbd8de4461241126497", 
         "description": "...", 
@@ -342,10 +314,8 @@
         "location": "http://www.playstore.com", 
         "mediaContent": "http://www.something.com/themename/theme.zip", 
         "mediaThumbnail": "http://www.bnto.net/fruitsclockex/theme_stencil.jpg",
-        "status": 1, 
+        "status": 1,  
         "tid": 27, 
         "title": "Stencil Theme "
     }
-
-
 ]
